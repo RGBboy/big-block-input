@@ -1,0 +1,45 @@
+{
+  "name": "big-block-input",
+  "version": "0.0.1",
+  "description": "Input System for the Big Block Javascript Game Engine",
+  "keywords": [
+    "big block",
+    "input",
+    "game engine"
+  ],
+  "repository" : {
+    "type" : "git", 
+    "url" : "https://github.com/RGBboy/big-block-input.git"
+  },
+  "author": "RGBboy <l-_-l@rgbboy.com>",
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "dependencies": {
+    
+  },
+  "devDependencies": {
+    "tape": "latest",
+    "sinon": "latest",
+    "browserify": "latest",
+    "testling": "latest"
+  },
+  "testling": {
+    "files": [ "./test/*.js"],
+    "browsers": [
+      "ie/6..latest",
+      "chrome/22..latest",
+      "firefox/16..latest",
+      "safari/latest",
+      "opera/11.0..latest",
+      "iphone/6",
+      "ipad/6",
+      "android-browser/latest"
+    ]
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/tape ./test/*.spec.js"
+  },
+  "license": "MIT"
+}
