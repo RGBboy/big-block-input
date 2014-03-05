@@ -2,7 +2,7 @@
 
 Input System for the Big Block Javascript Game Engine
 
-[![Browser Support](https://ci.testling.com/RGBboy/big-block-input.png)
+[![Browser Support](https://ci.testling.com/rgbboy/big-block-input.png)
 ](https://ci.testling.com/RGBboy/big-block-input)
 
 [![Build Status](https://secure.travis-ci.org/RGBboy/big-block-input.png)](http://travis-ci.org/RGBboy/big-block-input)
