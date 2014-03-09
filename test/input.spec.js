@@ -31,6 +31,6 @@ var teardown = function (t) {
  */
 
 test('Input', function (t) {
-    t.plan(1);
-    t.ok(Input, 'class should exist');
+  t.plan(1);
+  t.ok(Input, 'class should exist');
 });
