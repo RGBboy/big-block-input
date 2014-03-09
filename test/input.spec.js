@@ -34,3 +34,14 @@ test('Input', function (t) {
   t.plan(1);
   t.ok(Input, 'class should exist');
 });
+
+/**
+ * input.getAxis
+ */
+
+test('input.getAxis', function (t) {
+  setup(t);
+  t.plan(1);
+  t.equal(typeof input.getAxis, 'function');
+  teardown(t);
+});
