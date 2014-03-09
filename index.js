@@ -6,7 +6,7 @@
  * Module Dependencies
  */
 
-
+var Input;
 
 /**
  * Input System
@@ -14,10 +14,25 @@
  * @return {InputSystem}
  * @api public
  */
-exports = module.exports = function () {
+Input = function () {
 
   var self = {};
+
+  /**
+   * .getAxis
+   *
+   * @return {}
+   * @api public
+   */
+  self.getAxis = function () {
+    
+  };
 
   return self;
 
 };
+
+/**
+ * Module Exports
+ */
+exports = module.exports = Input;
