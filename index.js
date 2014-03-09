@@ -11,31 +11,59 @@ var Input;
 /**
  * Input System
  *
+ * @param {Array} config
+ * @param {EventEmitter} window
  * @return {InputSystem}
  * @api public
  */
-Input = function () {
+Input = function (config, window) {
 
-  var self = {};
+  var self = {},
+      values = {},
+      namesByKeyCode = {},
+      pressed = {},
+      i;
 
-  /**
-   * .getKey
-   *
-   * @return {}
-   * @api public
-   */
-  self.getKey = function () {
-    
-  };
+  Object.keys(config).forEach(function (value) {
+    values[value] = 0;
+    if (config[value].positiveKeyCode) {
+      pressed[config[value].positiveKeyCode] = false;
+      namesByKeyCode[config[value].positiveKeyCode] = {
+        name: value,
+        value: 1
+      }
+    };
+    if (config[value].negativeKeyCode) {
+      pressed[config[value].negativeKeyCode] = false;
+      namesByKeyCode[config[value].negativeKeyCode] = {
+        name: value,
+        value: -1
+      }
+    };
+  });
+
+  window.addEventListener('keydown', function (event) {
+    if (namesByKeyCode[event.keyCode] && !pressed[event.keyCode]) {
+      pressed[event.keyCode] = true;
+      values[namesByKeyCode[event.keyCode].name] += namesByKeyCode[event.keyCode].value;
+    };
+  });
+
+  window.addEventListener('keyup', function (event) {
+    if (namesByKeyCode[event.keyCode] && pressed[event.keyCode]) {
+      pressed[event.keyCode] = false;
+      values[namesByKeyCode[event.keyCode].name] -= namesByKeyCode[event.keyCode].value;
+    };
+  });
 
   /**
    * .getAxis
    *
-   * @return {}
+   * @return {Number} -1 ... 1
    * @api public
    */
-  self.getAxis = function () {
-    
+  self.getAxis = function (name) {
+    return values[name];
   };
 
   return self;
