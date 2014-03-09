@@ -19,6 +19,16 @@ Input = function () {
   var self = {};
 
   /**
+   * .getKey
+   *
+   * @return {}
+   * @api public
+   */
+  self.getKey = function () {
+    
+  };
+
+  /**
    * .getAxis
    *
    * @return {}
