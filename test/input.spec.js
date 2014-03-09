@@ -45,3 +45,14 @@ test('input.getAxis', function (t) {
   t.equal(typeof input.getAxis, 'function');
   teardown(t);
 });
+
+/**
+ * input.getKey
+ */
+
+test('input.getKey', function (t) {
+  setup(t);
+  t.plan(1);
+  t.equal(typeof input.getKey, 'function');
+  teardown(t);
+});
