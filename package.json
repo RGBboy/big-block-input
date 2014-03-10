@@ -24,6 +24,8 @@
     "big-block-window": "0.x.x"
   },
   "devDependencies": {
+    "di": "git+https://github.com/RGBboy/di.js.git#build-cjs",
+    "big-block-window": "0.x.x",
     "tape": "latest",
     "sinon": "latest",
     "browserify": "latest",
