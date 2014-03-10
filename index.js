@@ -42,19 +42,21 @@ Input = function (config, window) {
     };
   });
 
-  window.addEventListener('keydown', function (event) {
-    if (namesByKeyCode[event.keyCode] && !pressed[event.keyCode]) {
-      pressed[event.keyCode] = true;
-      values[namesByKeyCode[event.keyCode].name] += namesByKeyCode[event.keyCode].value;
-    };
-  });
+  if (window) {
+    window.addEventListener('keydown', function (event) {
+      if (namesByKeyCode[event.keyCode] && !pressed[event.keyCode]) {
+        pressed[event.keyCode] = true;
+        values[namesByKeyCode[event.keyCode].name] += namesByKeyCode[event.keyCode].value;
+      };
+    });
 
-  window.addEventListener('keyup', function (event) {
-    if (namesByKeyCode[event.keyCode] && pressed[event.keyCode]) {
-      pressed[event.keyCode] = false;
-      values[namesByKeyCode[event.keyCode].name] -= namesByKeyCode[event.keyCode].value;
-    };
-  });
+    window.addEventListener('keyup', function (event) {
+      if (namesByKeyCode[event.keyCode] && pressed[event.keyCode]) {
+        pressed[event.keyCode] = false;
+        values[namesByKeyCode[event.keyCode].name] -= namesByKeyCode[event.keyCode].value;
+      };
+    });
+  };
 
   /**
    * .getAxis
