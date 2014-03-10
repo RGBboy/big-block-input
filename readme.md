@@ -9,17 +9,9 @@ Input System for the Big Block Javascript Game Engine
 
 ## API
 
+### .getAxis(name)
 
-
-## Events
-
-
-
-## To Do
-
-* getAxis
-* getKey
-* configuration
+returns -1, 0 or 1 based upon the key being pressed.
 
 ## License 
 
