@@ -32,7 +32,7 @@ var setup = function (t) {
     }
   };
   window = helpers.EventEmitter(sandbox);
-  input = Input(config, window);
+  input = Input.System(config, window);
 };
 
 /**

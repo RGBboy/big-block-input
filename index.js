@@ -6,7 +6,11 @@
  * Module Dependencies
  */
 
-var Input;
+var di = require('di'),
+    Input,
+    Config,
+    System,
+    Window = require('big-block-window');
 
 /**
  * Input System
@@ -16,7 +20,7 @@ var Input;
  * @return {InputSystem}
  * @api public
  */
-Input = function (config, window) {
+System = function (config, window) {
 
   var self = {},
       values = {},
@@ -70,6 +74,21 @@ Input = function (config, window) {
 
   return self;
 
+};
+
+Config = function () {
+  return {};
+};
+
+/**
+ * Dependency Annotation
+ */
+
+di.annotate(System, new di.InjectAnnotation(Config, Window));
+
+Input = {
+  System: System,
+  Config: Config
 };
 
 /**
