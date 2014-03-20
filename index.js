@@ -6,7 +6,7 @@
  * Module Dependencies
  */
 
-var di = require('di'),
+var di = require('big-block').di,
     Input,
     Config,
     System,

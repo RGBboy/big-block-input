@@ -17,8 +17,8 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "di": "git+https://github.com/RGBboy/di.js.git#build-cjs",
-    "big-block-window": "latest"
+    "big-block": "0.x.x",
+    "big-block-window": "0.x.x"
   },
   "devDependencies": {
     "tape": "latest",
