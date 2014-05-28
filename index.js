@@ -84,7 +84,7 @@ Config = function () {
  * Dependency Annotation
  */
 
-di.annotate(System, new di.InjectAnnotation(Config, Window));
+di.annotate(System, new di.Inject(Config, Window));
 
 Input = {
   System: System,

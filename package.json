@@ -17,7 +17,7 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "big-block": ">=0.0.3",
+    "big-block": ">=0.0.4",
     "big-block-window": ">=0.0.1"
   },
   "devDependencies": {
