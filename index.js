@@ -8,43 +8,22 @@
 
 var di = require('big-block').di,
     Input,
-    Config,
-    System,
     Window = require('big-block-window');
 
 /**
  * Input System
  *
- * @param {Array} config
  * @param {EventEmitter} window
  * @return {InputSystem}
  * @api public
  */
-System = function (config, window) {
+Input = function (window) {
 
   var self = {},
       values = {},
       namesByKeyCode = {},
       pressed = {},
       i;
-
-  Object.keys(config).forEach(function (value) {
-    values[value] = 0;
-    if (config[value].positiveKeyCode) {
-      pressed[config[value].positiveKeyCode] = false;
-      namesByKeyCode[config[value].positiveKeyCode] = {
-        name: value,
-        value: 1
-      }
-    };
-    if (config[value].negativeKeyCode) {
-      pressed[config[value].negativeKeyCode] = false;
-      namesByKeyCode[config[value].negativeKeyCode] = {
-        name: value,
-        value: -1
-      }
-    };
-  });
 
   if (window) {
     window.addEventListener('keydown', function (event) {
@@ -63,6 +42,33 @@ System = function (config, window) {
   };
 
   /**
+   * .defineAxis
+   *
+   * @param {String} name
+   * @param {String} positiveKeyCode
+   * @param {String} negativeKeyCode
+   * @return {undefined}
+   * @api public
+   */
+  self.defineAxis = function (name, positiveKeyCode, negativeKeyCode) {
+    values[name] = 0;
+    if (positiveKeyCode) {
+      pressed[positiveKeyCode] = false;
+      namesByKeyCode[positiveKeyCode] = {
+        name: name,
+        value: 1
+      };
+    };
+    if (negativeKeyCode) {
+      pressed[negativeKeyCode] = false;
+      namesByKeyCode[negativeKeyCode] = {
+        name: name,
+        value: -1
+      };
+    };
+  };
+
+  /**
    * .getAxis
    *
    * @return {Number} -1 ... 1
@@ -76,20 +82,11 @@ System = function (config, window) {
 
 };
 
-Config = function () {
-  return {};
-};
-
 /**
  * Dependency Annotation
  */
 
-di.annotate(System, new di.Inject(Config, Window));
-
-Input = {
-  System: System,
-  Config: Config
-};
+di.annotate(Input, new di.Inject(Window));
 
 /**
  * Module Exports

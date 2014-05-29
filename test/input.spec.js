@@ -11,9 +11,10 @@ var test = require('tape'),
     Input = require('../index'),
     helpers = require('./helpers'),
     sandbox,
-    config,
     window,
-    input;
+    input,
+    positiveKeyCode = '38',
+    negativeKeyCode = '40';
 
 /**
  * Setup
@@ -21,18 +22,12 @@ var test = require('tape'),
 
 var setup = function (t) {
   sandbox = sinon.sandbox.create();
-  config = {
-    'vertical': {
-      positiveKeyCode: '38',
-      negativeKeyCode: '40'
-    },
-    'horizontal': {
-      positiveKeyCode: '39',
-      negativeKeyCode: '37'
-    }
-  };
   window = helpers.EventEmitter(sandbox);
-  input = Input.System(config, window);
+  input = Input(window);
+};
+
+var setupAxis = function (t) {
+  input.defineAxis('vertical', positiveKeyCode, negativeKeyCode);
 };
 
 /**
@@ -53,6 +48,25 @@ test('Input', function (t) {
 });
 
 /**
+ * input.defineAxis
+ */
+
+test('input.defineAxis should be a function', function (t) {
+  setup(t);
+  t.plan(1);
+  t.equal(typeof input.defineAxis, 'function');
+  teardown(t);
+});
+
+test('input.defineAxis should define an axis', function (t) {
+  setup(t);
+  t.plan(1);
+  input.defineAxis('vertical', positiveKeyCode, negativeKeyCode);
+  t.equal(input.getAxis('vertical'), 0)
+  teardown(t);
+});
+
+/**
  * input.getAxis
  */
 
@@ -63,11 +77,19 @@ test('input.getAxis should be a function', function (t) {
   teardown(t);
 });
 
-test('input.getAxis should return 1 for positive keydown event', function (t) {
+test('input.getAxis should return undefined for undefined axis', function (t) {
   setup(t);
   t.plan(1);
+  t.equal(input.getAxis('undefined'), undefined);
+  teardown(t);
+});
+
+test('input.getAxis should return 1 for positive keydown event', function (t) {
+  setup(t);
+  setupAxis(t);
+  t.plan(1);
   window.emit('keydown', {
-    keyCode: config.vertical.positiveKeyCode
+    keyCode: positiveKeyCode
   });
   t.equal(input.getAxis('vertical'), 1);
   teardown(t);
@@ -75,9 +97,10 @@ test('input.getAxis should return 1 for positive keydown event', function (t) {
 
 test('input.getAxis should return -1 for negative keydown event', function (t) {
   setup(t);
+  setupAxis(t);
   t.plan(1);
   window.emit('keydown', {
-    keyCode: config.vertical.negativeKeyCode
+    keyCode: negativeKeyCode
   });
   t.equal(input.getAxis('vertical'), -1);
   teardown(t);
@@ -85,6 +108,7 @@ test('input.getAxis should return -1 for negative keydown event', function (t) {
 
 test('input.getAxis should return 0 for no keydown event', function (t) {
   setup(t);
+  setupAxis(t);
   t.plan(1);
   t.equal(input.getAxis('vertical'), 0);
   teardown(t);
@@ -92,9 +116,10 @@ test('input.getAxis should return 0 for no keydown event', function (t) {
 
 test('input.getAxis should return 0 for positive keyup event', function (t) {
   setup(t);
+  setupAxis(t);
   t.plan(1);
   window.emit('keyup', {
-    keyCode: config.vertical.positiveKeyCode
+    keyCode: positiveKeyCode
   });
   t.equal(input.getAxis('vertical'), 0);
   teardown(t);
@@ -102,12 +127,13 @@ test('input.getAxis should return 0 for positive keyup event', function (t) {
 
 test('input.getAxis should return 1 for multiple positive keydown events', function (t) {
   setup(t);
+  setupAxis(t);
   t.plan(1);
   window.emit('keydown', {
-    keyCode: config.vertical.positiveKeyCode
+    keyCode: positiveKeyCode
   });
   window.emit('keydown', {
-    keyCode: config.vertical.positiveKeyCode
+    keyCode: positiveKeyCode
   });
   t.equal(input.getAxis('vertical'), 1);
   teardown(t);
@@ -115,12 +141,13 @@ test('input.getAxis should return 1 for multiple positive keydown events', funct
 
 test('input.getAxis should return 0 for positive and negative keydown events', function (t) {
   setup(t);
+  setupAxis(t);
   t.plan(1);
   window.emit('keydown', {
-    keyCode: config.vertical.positiveKeyCode
+    keyCode: positiveKeyCode
   });
   window.emit('keydown', {
-    keyCode: config.vertical.negativeKeyCode
+    keyCode: negativeKeyCode
   });
   t.equal(input.getAxis('vertical'), 0);
   teardown(t);
@@ -128,12 +155,13 @@ test('input.getAxis should return 0 for positive and negative keydown events', f
 
 test('input.getAxis should return 0 for positive keydown then keyup events', function (t) {
   setup(t);
+  setupAxis(t);
   t.plan(1);
   window.emit('keydown', {
-    keyCode: config.vertical.positiveKeyCode
+    keyCode: positiveKeyCode
   });
   window.emit('keyup', {
-    keyCode: config.vertical.positiveKeyCode
+    keyCode: positiveKeyCode
   });
   t.equal(input.getAxis('vertical'), 0);
   teardown(t);
@@ -141,12 +169,13 @@ test('input.getAxis should return 0 for positive keydown then keyup events', fun
 
 test('input.getAxis should return 1 for positive keyup then keydown events', function (t) {
   setup(t);
+  setupAxis(t);
   t.plan(1);
   window.emit('keyup', {
-    keyCode: config.vertical.positiveKeyCode
+    keyCode: positiveKeyCode
   });
   window.emit('keydown', {
-    keyCode: config.vertical.positiveKeyCode
+    keyCode: positiveKeyCode
   });
   t.equal(input.getAxis('vertical'), 1);
   teardown(t);
