@@ -9,6 +9,10 @@ Input System for the Big Block Javascript Game Engine
 
 ## API
 
+### .defineAxis(name, positiveKeyCode, negativeKeyCode)
+
+defines an axis to listen for key presses.
+
 ### .getAxis(name)
 
 returns -1, 0 or 1 based upon the key being pressed.
